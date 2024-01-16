@@ -11,7 +11,7 @@
     "href": "posts/welcome/index.html",
     "title": "Welcome To My Blog",
     "section": "",
-    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+    "text": "This is the first post in a Quarto blog. Welcome!"
   },
   {
     "objectID": "posts/bruin/index.html",
@@ -21,17 +21,10 @@
     "text": "Data Visualization of Palmer Penguins\nPalmer penguins are fun and we should visualize some of their datas.\nImporting packages and reading penguins datasets.\n\nimport pandas as pd\nimport seaborn as sns\nfrom matplotlib import pyplot as plt\nurl = \"https://raw.githubusercontent.com/pic16b-ucla/24W/main/datasets/palmer_penguins.csv\"\npenguins = pd.read_csv(url)\n\nPlotting from the data set\n\nsns.scatterplot(penguins, x = 'Body Mass (g)', y = 'Flipper Length (mm)', hue = 'Species').set(title='Flipper Length and Body Mass relationships in three species of penguins')\nplt.legend(bbox_to_anchor=(1, 1),loc=2)\nplt.title"
   },
   {
-    "objectID": "posts/post-with-code/index.html",
-    "href": "posts/post-with-code/index.html",
-    "title": "Post With Code",
-    "section": "",
-    "text": "This is a post with executable code. ’’’ {python} np.random.rand() ’’’"
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "myblog",
     "section": "",
-    "text": "Data Visualization of Palmer Penguins\n\n\n\n\n\n\nweek 0\n\n\n\n\n\n\n\n\n\nJan 15, 2024\n\n\nXipeng\n\n\n\n\n\n\n\n\n\n\n\n\nPost With Code\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nJan 9, 2024\n\n\nHarlow Malloc\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJan 6, 2024\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+    "text": "Data Visualization of Palmer Penguins\n\n\n\n\n\n\nweek 0\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nJan 15, 2024\n\n\nXipeng\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJan 6, 2024\n\n\nXipeng\n\n\n\n\n\n\nNo matching items"
   }
 ]
