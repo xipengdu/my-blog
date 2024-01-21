@@ -14,13 +14,6 @@
     "text": "This is the first post in a Quarto blog. Welcome!"
   },
   {
-    "objectID": "posts/Week0/index1.html",
-    "href": "posts/Week0/index1.html",
-    "title": "Data Visualization of Palmer Penguins",
-    "section": "",
-    "text": "Data Visualization of Palmer Penguins\nPalmer penguins are fun and we should visualize some of their datas. These are the three different species of Palmer penguins.  image source\nImporting packages and reading penguins datasets.\n\nimport pandas as pd\nimport seaborn as sns\nfrom matplotlib import pyplot as plt\nurl = \"https://raw.githubusercontent.com/pic16b-ucla/24W/main/datasets/palmer_penguins.csv\"\npenguins = pd.read_csv(url)  # accessing the csv and set as a panda dataframe\n\nFrom the example in this Github page of Palmer Penguins, it looks very intuitive to plot a scatter plot with flipper length and body mass from the data. We can also make the visualization clear using the ‘hue’ arguement to show different color for each datapoint for each species.\n\nsns.scatterplot(penguins, x = 'Body Mass (g)', y = 'Flipper Length (mm)', hue = 'Species').set(title='Flipper Length and Body Mass relationships in three species of penguins')  # plotting a scatterplot with Body mass and Flipper length with different species of penguins. \nplt.legend(bbox_to_anchor=(1, 1),loc=2)  # setting legends outside of the graph for clarity\nplt.title('Body Mass and Flipper Length Relationships based on different speicies of penguins')  # title for the graph\n\nText(0.5, 1.0, 'Body Mass and Flipper Length Relationships based on different speicies of penguins')"
-  },
-  {
     "objectID": "posts/Week0/index.html",
     "href": "posts/Week0/index.html",
     "title": "Data Visualization of Palmer Penguins",
@@ -32,6 +25,6 @@
     "href": "index.html",
     "title": "myblog",
     "section": "",
-    "text": "Data Visualization of Palmer Penguins\n\n\n\n\n\n\nweek 0\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nJan 15, 2024\n\n\nXipeng Du\n\n\n\n\n\n\n\n\n\n\n\n\nData Visualization of Palmer Penguins\n\n\n\n\n\n\nweek 0\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nJan 15, 2024\n\n\nXipeng Du\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJan 6, 2024\n\n\nXipeng\n\n\n\n\n\n\nNo matching items"
+    "text": "Data Visualization of Palmer Penguins\n\n\n\n\n\n\nweek 0\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nJan 15, 2024\n\n\nXipeng Du\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJan 6, 2024\n\n\nXipeng\n\n\n\n\n\n\nNo matching items"
   }
 ]
