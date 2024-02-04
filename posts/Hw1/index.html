@@ -532,13 +532,12 @@ CREATE TABLE "countries" (
 </div>
 </div>
 <div id="cell-26" class="cell" data-execution_count="60">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> query(db_file <span class="op">=</span> <span class="st">"temps.db"</span>, </span>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>query(db_file <span class="op">=</span> <span class="st">"temps.db"</span>, </span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                country <span class="op">=</span> <span class="st">"India"</span>,     </span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                year_begin <span class="op">=</span> <span class="dv">1980</span>, </span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>                year_end <span class="op">=</span> <span class="dv">2020</span>,</span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                month_begin <span class="op">=</span> <span class="dv">1</span>,</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                month_end <span class="op">=</span> <span class="dv">12</span>)</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(df.groupby([<span class="st">'Year'</span>, <span class="st">'Month'</span>])[<span class="st">'Temp'</span>].<span class="bu">apply</span>(np.average)).reset_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                month_end <span class="op">=</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="60">
 <div>
 
@@ -649,11 +648,11 @@ CREATE TABLE "countries" (
 <iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_65.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
-<div id="cell-30" class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> temp_in_a_year(<span class="st">"temps.db"</span>, <span class="st">"United States"</span>, <span class="dv">1999</span>, <span class="dv">1</span>, <span class="dv">12</span>)</span>
+<div id="cell-30" class="cell" data-execution_count="66">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> temp_in_a_year(<span class="st">"temps.db"</span>, <span class="st">"United States"</span>, <span class="dv">1999</span>, <span class="dv">2002</span>, <span class="dv">1</span>, <span class="dv">12</span>)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_88.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_66.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 <p>We can also show a graph of temperature of same month over the years for a specific country with px.line figures which is more suited for over the year changes.</p>
