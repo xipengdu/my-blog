@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Xipeng Du">
+<meta name="dcterms.date" content="2024-02-10">
 
-<title>myblog</title>
+<title>myblog - Web Development with Flask - A Simple Implementation of Online Message Bank</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +25,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,77 +68,19 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">myblog</span>
     </a>
   </div>
@@ -149,7 +91,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">Contact info</span></a>
   </li>  
   <li class="nav-item compact">
@@ -167,221 +109,158 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">myblog</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">Web Development with Flask - A Simple Implementation of Online Message Bank</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">hw3</div>
+                <div class="quarto-category">web development</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Xipeng Du </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">February 10, 2024</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(5)</span></div><div class="category" data-category="analysis">analysis <span class="quarto-category-count">(2)</span></div><div class="category" data-category="hw0">hw0 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="hw1">hw1 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="hw2">hw2 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="hw3">hw3 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="news">news <span class="quarto-category-count">(1)</span></div><div class="category" data-category="web development">web development <span class="quarto-category-count">(1)</span></div><div class="category" data-category="web scraping">web scraping <span class="quarto-category-count">(1)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
+<p>In this blog post, I’m going to make a super cool simple online message bank that you can develop yourself with flask. Here’s a <a href="https://github.com/xipengdu/message_bank">link</a> to my project repository which is built upon this <a href="https://github.com/PIC16B-ucla/pic16b-mnist-demo">example</a>.</p>
+<section id="setups-with-terminal-command" class="level2">
+<h2 class="anchored" data-anchor-id="setups-with-terminal-command">1. Setups with Terminal Command</h2>
+<p>After cloning the repository, you can run this page on your local machine with <code>flask run</code>.</p>
+</section>
+<section id="explaining-functions-in-app.py" class="level2">
+<h2 class="anchored" data-anchor-id="explaining-functions-in-app.py">2. Explaining Functions in app.py</h2>
+<section id="get_message_db" class="level3">
+<h3 class="anchored" data-anchor-id="get_message_db">(1) <code>get_message_db()</code></h3>
+<pre><code>def get_message_db():
+  # Use create table if not exists to create a message_db with handle and message for text. 
+  try:
+      return g.message_db
+  except:
+      g.message_db = sqlite3.connect("messages_db.sqlite")
+      cmd = 'CREATE TABLE IF NOT EXISTS messages_table (handle TEXT, message TEXT)' 
+      cursor = g.message_db.cursor()
+      cursor.execute(cmd)
+      return g.message_db</code></pre>
+<p>This is the first function we use to check and create a table called messages_table in our database file. With the sql command <code>CREATE TABLE IF NOT EXISTS table (column1, column2)</code>, we can create a table in our database if it doesn’t exists. This table includes two text columns with handle and message.</p>
+</section>
+<section id="basic-route-defintions" class="level3">
+<h3 class="anchored" data-anchor-id="basic-route-defintions">(2) basic route defintions</h3>
+<pre><code>@app.route('/')
+def main():
+    return render_template('hello.html')
+
+@app.route('/hello')
+def hello():
+    return render_template('hello.html')</code></pre>
+<p><code>main()</code> and <code>hello()</code> are the most basic functions that call render_template with our html files that we have written.</p>
+</section>
+<section id="insert_messagerequest" class="level3">
+<h3 class="anchored" data-anchor-id="insert_messagerequest">(3) <code>insert_message(request)</code></h3>
+<pre><code>def insert_message(request):
+    """
+    use sql command insert into table .. values .. to insert input into the database. 
+    """
+    cmd = f'INSERT INTO messages_table (handle, message) VALUES ("{request.form["handle"]}", "{request.form["message"]}")'
+    cursor = g.message_db.cursor()
+    cursor.execute(cmd)
+    g.message_db.commit()
+    pass</code></pre>
+<p>This function is used to insert values into our table in the database. The values from the website will form a request object that can be used as input of this function. Then, we can use sql command <code>INSERT INTO table (column) VALUES (value)</code> to insert both handle and message into two corresponding columns in the table.</p>
+</section>
+<section id="submit" class="level3">
+<h3 class="anchored" data-anchor-id="submit">(4) <code>submit()</code></h3>
+<pre><code>@app.route('/submit', methods=['POST', 'GET'])
+def submit():
+    get_message_db()
+    if request.method == 'GET':
+        return render_template('submit.html')     
+    else:
+        # split successful and error case for inputs. 
+        insert_message(request)
+        try: 
+            insert_message(request)
+            return render_template('submit.html', thanks = True, handle = request.form['handle'])
+        except:
+            return render_template('submit.html', error = True)</code></pre>
+<p>With method <code>'POST'</code> and <code>'GET'</code>, we can split two version of returned webpage. Then, after successfully running <code>insert(request)</code> for this page, we can render template with <code>thanks</code> or <code>error</code>.</p>
+</section>
+<section id="random_messagen" class="level3">
+<h3 class="anchored" data-anchor-id="random_messagen">(5) <code>random_message(n)</code></h3>
+<pre><code>def random_messages(n): 
+    # fetch n elements from the table with random() 
+    cmd = f'SELECT * FROM messages_table ORDER BY RANDOM() LIMIT {n};'
+    cursor = get_message_db().cursor()
+    result = cursor.execute(cmd).fetchall()
+    return result</code></pre>
+<p>In this function, we can fetch n ammounts of random entries in our database’s table with the <code>SELECT * FROM table ORDER BY RANDOM LIMIT n</code> command. Then, this function return a list with two columns and n rows.</p>
+</section>
+<section id="view" class="level3">
+<h3 class="anchored" data-anchor-id="view">(6) <code>view()</code></h3>
+<pre><code>@app.route('/view')
+def view():
+    result = random_messages(5)
+    return render_template('view.html', result = result)</code></pre>
+<p>This function will call <code>random_messages(5)</code> to return 5 rows of handle and message. Then, we feed this list into <code>view.html</code> as result function, and render it. Then, we will cover how to implement function arguments in the html files.</p>
+</section>
+</section>
+<section id="explaining-html-template-files" class="level2">
+<h2 class="anchored" data-anchor-id="explaining-html-template-files">3. Explaining HTML Template Files</h2>
+<pre><code>{% extends 'base.html' %}
+
+{% block header %}
+  &lt;h1&gt;{% block title %}View Messages{% endblock %}&lt;/h1&gt;
+{% endblock %}
+
+{% block content %}
+  &lt;p&gt;
+    Displaying up to five random messages from past submissions! 
+    &lt;br&gt;
+    {% for entry in result %} 
+    &lt;message&gt;{{entry[1]}} &lt;/message&gt;
+                               - &lt;i&gt;{{entry[0]}}&lt;/i&gt;
+    &lt;br&gt;
+  {% endfor %}
+  &lt;/p&gt;
+{% endblock %}</code></pre>
+<p>This is the <code>view.html</code> template. With <code>base.html</code> on top of this webpage, <code>&lt;h1&gt;</code> is a type of text format used for header. Then, we use <code>&lt;p&gt;</code> text format for the remainder of the text. Then, we use for loop function in jinja to display each random entries. I have also made a text format called <code>&lt;message&gt;</code> to differentiate message and handle, and I also italized handle with <code>&lt;i&gt;</code>.</p>
+<section id="implementation-of-the-website" class="level3">
+<h3 class="anchored" data-anchor-id="implementation-of-the-website">4. Implementation of the Website</h3>
+<p>We can input our name and message into the website in the submit page. <br> <img src="./submit.png" class="img-fluid" alt="alt text"> <br></p>
+<p>Then, we can view a bunch of previous messages that is in the database in the view page. <br> <img src="./view.png" class="img-fluid" alt="alt text"></p>
 
 
+</section>
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="hw3,web development" data-listing-date-sort="1707552000000" data-listing-file-modified-sort="1707627631078" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="846">
-<div class="thumbnail">
-<p><a href="./posts/Hw3/index.html" class="no-external"></a></p><a href="./posts/Hw3/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/Hw3/submit.png" alt="alt text"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/Hw3/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/Hw3/index.html" class="no-external">Web Development with Flask - A Simple Implementation of Online Message Bank</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/Hw3/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('hw3'); return false;">
-hw3
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('web development'); return false;">
-web development
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/Hw3/index.html" class="no-external">In this blog post, I’m going to make a super cool simple online message bank that you can develop yourself with flask. Here’s a link to my project repository which is built…</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/Hw3/index.html" class="no-external">
-<div class="listing-date">
-Feb 10, 2024
-</div>
-<div class="listing-author">
-Xipeng Du
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="hw2,web scraping" data-listing-date-sort="1707033600000" data-listing-file-modified-sort="1707176938774" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="781">
-<div class="thumbnail">
-<p><a href="./posts/Hw2/index.html" class="no-external"></a></p><a href="./posts/Hw2/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./posts/Hw2/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/Hw2/index.html" class="no-external">Web Scraping with Scrapy on TMDB</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/Hw2/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('hw2'); return false;">
-hw2
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('web scraping'); return false;">
-web scraping
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/Hw2/index.html" class="no-external">In this blog post, I’m going to make a super cool web scraper that scrapes your favorite movie in the TMDB. <br> Here’s a link to my project repository.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/Hw2/index.html" class="no-external">
-<div class="listing-date">
-Feb 4, 2024
-</div>
-<div class="listing-author">
-Xipeng Du
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="hw1,analysis" data-listing-date-sort="1706256000000" data-listing-file-modified-sort="1707087335566" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="294">
-<div class="thumbnail">
-<p><a href="./posts/Hw1/index.html" class="no-external"></a></p><a href="./posts/Hw1/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./posts/Hw1/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/Hw1/index.html" class="no-external">Building Global Temperature Database and Use Ploty Express to Make Interesting Figures</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/Hw1/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('hw1'); return false;">
-hw1
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('analysis'); return false;">
-analysis
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/Hw1/index.html" class="no-external">From the file temps.csv, station-metadata.csv, fips-10-4-to-iso-country-codes.csv, we can build a database with three such tables. From the class we did a little data…</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/Hw1/index.html" class="no-external">
-<div class="listing-date">
-Jan 26, 2024
-</div>
-<div class="listing-author">
-Xipeng Du
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="hw0,analysis" data-listing-date-sort="1705305600000" data-listing-file-modified-sort="1705965533276" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="79">
-<div class="thumbnail">
-<p><a href="./posts/Hw0/index.html" class="no-external"></a></p><a href="./posts/Hw0/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/Hw0/lter_penguins.png" alt="image"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/Hw0/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/Hw0/index.html" class="no-external">Data Visualization of Palmer Penguins</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/Hw0/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('hw0'); return false;">
-hw0
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('analysis'); return false;">
-analysis
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/Hw0/index.html" class="no-external">Palmer penguins are fun and we should visualize some of their datas. These are the three different species of Palmer penguins.  <em>image source</em></a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/Hw0/index.html" class="no-external">
-<div class="listing-date">
-Jan 15, 2024
-</div>
-<div class="listing-author">
-Xipeng Du
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="news" data-listing-date-sort="1704528000000" data-listing-file-modified-sort="1705364035899" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="10">
-<div class="thumbnail">
-<p><a href="./posts/welcome/index.html" class="no-external"></a></p><a href="./posts/welcome/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/welcome/thumbnail.jpg"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/welcome/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/welcome/index.html" class="no-external">Welcome To My Blog</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/welcome/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('news'); return false;">
-news
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/welcome/index.html" class="no-external">This is the first post in a Quarto blog. Welcome!</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/welcome/index.html" class="no-external">
-<div class="listing-date">
-Jan 6, 2024
-</div>
-<div class="listing-author">
-Xipeng
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
