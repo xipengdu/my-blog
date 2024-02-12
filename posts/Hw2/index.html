@@ -210,14 +210,18 @@ class TmdbSpider(scrapy.Spider):
 <p>Let’s go through different parse functions that I used to consctruct this spider.</p>
 <pre><code>def parse(self, response): 
     """
-    add /cast to the url and use parse_full_credits and call parse_full_credit
+    add /cast to the url to go to full cast page
+    and use parse_full_credits and call parse_full_credit
     """
     current_url = response.urljoin(f'{response.url}/cast') 
     yield scrapy.Request(current_url, callback=self.parse_full_credits)</code></pre>
 <p>This is the <code>parse()</code> implementation in our spider class. This will be the first function that will be ran when we call this spider in the terminal. This works very similar to <code>scrapy.request(start_url, self.parse)</code> which return us a response object to play with. Use urljoin to add <code>/cast</code> at the end to take us to the full cast list for your favorite movies. Then, we go to the next function <code>parse_full_credits</code>.</p>
 <pre><code>def parse_full_credits(self, response):
         """
+        This function is going to parse the full cast and crew page, 
+        div @class=info is where all the actors who have an acting role in the movie is
         use xpath to take different actors' name and information and put them in a dictionary
+        Then, added credit_department=Acting to let next function to go to actor's personal page with acting credits
         """
         self.actors = {"actor": response.xpath("//div[@class='info']/p/a/text()").getall(), 
                          "web": response.xpath("//div[@class='info']/p/a/@href").getall()}
@@ -227,7 +231,9 @@ class TmdbSpider(scrapy.Spider):
 <p>To write this method, I used xpath to take different actors’ name using <code>text()</code>, and their corresponding link with <code>@href</code> from the same element which is from the <code>div[@class ='info']/p/a</code>. We also use string manipulation to go to the actor page with the specific credit category for acting, because we dont want to see a movie that our favorite actors are only crew for the movie. We can set up a loop for each actor in our favorite movie then call our next function <code>parse_actor_page</code>.</p>
 <pre><code>def parse_actor_page(self, response):
         """
-        Parsing actor's acting list to return a dictionary with actor name and movies and tv names for each movie or tv
+        This function is parsing actor's personal page, 
+        Xpath direction h2[@class = 'title'] contains information of all the movies or tv names that the actor have an acting role in this page. 
+        Then, return a dictionary with actor name and movies and tv names for each movie or tv
         """
         actor_name = response.xpath("//h2[@class='title']/a/text()").get()
         movie_or_TV_name_list = response.xpath("//a[@class='tooltip']/bdi/text()").getall()
