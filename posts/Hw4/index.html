@@ -245,7 +245,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </code></pre>
 </div>
 </div>
-<p><code>advance_time_matvecmul</code> function multiply the input u matrix with A and reshape it back to N x N.</p>
+<p><code>advance_time_matvecmul</code> function multiply the input u matrix with A to simulate time advancement and reshape it back to N x N.</p>
 <div id="cell-12" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(inspect.getsource(advance_time_matvecmul))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -264,7 +264,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </code></pre>
 </div>
 </div>
-<p>This function runs our iteration for 2 * M times and out put a time to run for M times, then output a image representation for every 300 iterations.</p>
+<p>This function runs our iteration for 2 * M times and out put a time to run for M times, then output a image representation for every 300 iterations. This function will also time these advancement iterations.</p>
 <div id="cell-14" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> iterate_throught_func(advance_func, M <span class="op">=</span> <span class="dv">2700</span>, init <span class="op">=</span> u0, epsilon <span class="op">=</span> epsilon, <span class="op">**</span>kwargs):</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
@@ -294,7 +294,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>        axs[<span class="bu">int</span>(i<span class="op">/</span><span class="dv">3</span>), <span class="bu">int</span>(i<span class="op">%</span><span class="dv">3</span>)].set_title(<span class="ss">f"Heatmap at t = </span><span class="sc">{</span>i<span class="op">*</span><span class="dv">300</span><span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-15" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>iterate_throught_func(advance_time_matvecmul, <span class="dv">2700</span>, A <span class="op">=</span> get_A(N))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>iterate_throught_func(advance_time_matvecmul, <span class="dv">2700</span>, A <span class="op">=</span> get_A(N))  <span class="co"># advance our first function for 2700 times</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>36.03676176071167</code></pre>
 </div>
@@ -309,7 +309,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="with-jax" class="level2">
 <h2 class="anchored" data-anchor-id="with-jax">2. With Jax</h2>
-<div id="cell-17" class="cell" data-execution_count="16">
+<p><code>get_sparse_A</code> will return a matrix A in sparsed form with <code>sparse.BC00.fromdense()</code>, and utilize it in our function to multiply. With sparsed matrix, matrix multiplication will be much faster for each iteration of time advancement. Then, I have added <code>advance_time_spmatvec = jax.jit(advance_time_spmatvec)</code> to jit our function which will speed up our function.</p>
+<div id="cell-18" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(inspect.getsource(get_sparse_A)) </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(inspect.getsource(advance_time_spmatvec))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -331,7 +332,6 @@ def advance_time_spmatvec(A, u, epsilon):
 </code></pre>
 </div>
 </div>
-<p><code>get_sparse_A</code> will return a matrix A in sparsed form, and utilize it in our function to multiply. Then, I have added <code>advance_time_spmatvec = jax.jit(advance_time_spmatvec)</code> to jit our function.</p>
 <div id="cell-19" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>iterate_throught_func(advance_time_spmatvec, <span class="dv">2700</span>, A <span class="op">=</span> get_sparse_A(N))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -348,7 +348,8 @@ def advance_time_spmatvec(A, u, epsilon):
 </section>
 <section id="with-numpy" class="level2">
 <h2 class="anchored" data-anchor-id="with-numpy">3. With Numpy</h2>
-<div id="cell-21" class="cell" data-execution_count="18">
+<p><code>advance_time_numpy</code> will utilize <code>np.roll</code> function to add value to four different direction and reduce the original point based on the heat diffusion funciton. With <code>np.roll()</code> we can apply the heat equation iteration in a vectorized form instead of doing O(N^3) level of matrix multiplication.</p>
+<div id="cell-22" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(inspect.getsource(advance_time_numpy))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>def advance_time_numpy(u, epsilon):
@@ -362,7 +363,6 @@ def advance_time_spmatvec(A, u, epsilon):
 </code></pre>
 </div>
 </div>
-<p>With <code>np.roll()</code> we can apply the heat equation iteration in a vectorized form instead of doing O(N^3) level of matrix multiplication.</p>
 <div id="cell-23" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>iterate_throught_func(advance_time_numpy, <span class="dv">2700</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -379,7 +379,8 @@ def advance_time_spmatvec(A, u, epsilon):
 </section>
 <section id="with-jax-1" class="level2">
 <h2 class="anchored" data-anchor-id="with-jax-1">4. With jax</h2>
-<div id="cell-25" class="cell" data-execution_count="20">
+<p>This is similar to the numpy method which we use <code>jnp.roll</code> instead of <code>np.roll</code> to add value to four different direction and reduce the original point based on the heat diffusion funciton, and we can also jit the function to make it to run faster.</p>
+<div id="cell-26" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(inspect.getsource(advance_time_jax))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>def advance_time_jax(u, epsilon):
@@ -394,7 +395,6 @@ def advance_time_spmatvec(A, u, epsilon):
 </code></pre>
 </div>
 </div>
-<p>This is similar to the numpy method, but we also jitted the function.</p>
 <div id="cell-27" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>iterate_throught_func(advance_time_jax, <span class="dv">2700</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
